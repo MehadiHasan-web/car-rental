@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Frontend\Rental;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class RentalController extends Controller
 {
@@ -14,7 +13,8 @@ class RentalController extends Controller
      */
     public function index()
     {
-        //
+        $rentals = Rental::all();
+        return view('admin.partials.rentals.index', compact('rentals'));
     }
 
     /**
@@ -30,30 +30,13 @@ class RentalController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        $request->validate([
-            'car_id' => 'required|exists:cars,id',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date',
-            'total_amount' => 'required|numeric',
-        ]);
-
-        Rental::create([
-            'user_id' => Auth::user()->id,
-            'car_id' => $request->car_id,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'total_cost' => $request->total_amount,
-        ]);
-        flash()->success('Car booked successfully!');
-        return redirect()->route('home');
+        //
     }
-
 
     /**
      * Display the specified resource.
      */
-    public function show(Rental $rental)
+    public function show(string $id)
     {
         //
     }
@@ -61,7 +44,7 @@ class RentalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Rental $rental)
+    public function edit(string $id)
     {
         //
     }
@@ -69,7 +52,7 @@ class RentalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Rental $rental)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -77,7 +60,7 @@ class RentalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Rental $rental)
+    public function destroy(string $id)
     {
         //
     }

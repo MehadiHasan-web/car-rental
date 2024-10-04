@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CarController;
-use App\Http\Controllers\Admin\RentalController;
+use App\Http\Controllers\Frontend\RentalController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +25,7 @@ Route::get('/dashboard', function () {
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('cars', CarController::class);
+    Route::resource('rentals', RentalController::class);
 });
 
 
