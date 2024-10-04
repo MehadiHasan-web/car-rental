@@ -15,7 +15,7 @@
                 </a>
                 <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="layout-static.html">All cars</a>
+                        <a class="nav-link" href="{{ route('cars.index') }}">All cars</a>
                         <a class="nav-link" href="{{ route('cars.create') }}">Create cars</a>
                     </nav>
                 </div>

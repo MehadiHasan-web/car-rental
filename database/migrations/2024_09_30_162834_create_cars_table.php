@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('model');
             $table->string('car_type');
             $table->string('rent_price');
-            $table->string('status');
-            $table->string('photo');
+            $table->string('status')->comment('0:Avaliable, 1:Not Avaliable');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

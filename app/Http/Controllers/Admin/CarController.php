@@ -13,7 +13,9 @@ class CarController extends Controller
      */
     public function index()
     {
-        dd('car index');
+        return view('admin.partials.cars.index', [
+            'cars' => Car::all(),
+        ]);
     }
 
     /**
@@ -29,8 +31,37 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'brand' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'car_type' => 'required|string|max:255',
+            'rent_price' => 'required|numeric|min:0',
+            'status' => 'required',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $photoName = time() . '.' . $photo->getClientOriginalExtension();
+            $photo->move(public_path('uploads/cars'), $photoName);
+        }
+
+        $car = new Car;
+        $car->name = $request->input('name');
+        $car->brand = $request->input('brand');
+        $car->model = $request->input('model');
+        $car->car_type = $request->input('car_type');
+        $car->rent_price = $request->input('rent_price');
+        $car->status = $request->input('status');
+        $car->photo = $photoName ?? null;
+        $car->save();
+
+        return redirect()->route('cars.index')->with('success', 'Car created successfully.');
     }
+
 
     /**
      * Display the specified resource.
@@ -45,7 +76,7 @@ class CarController extends Controller
      */
     public function edit(Car $car)
     {
-        //
+        return view('admin.partials.cars.edit', compact('car'));
     }
 
     /**

@@ -1,12 +1,23 @@
 <?php
 
 use App\Http\Controllers\Admin\CarController;
+use App\Http\Controllers\Admin\RentalController;
+use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+// route group
+Route::group([], function () {
+    Route::get('/', [FrontendController::class, 'index'])->name('home');
+    Route::get('/rentals', [FrontendController::class, 'rental'])->name('frontend.rentals');
+    Route::get('/car/{id}', [FrontendController::class, 'show'])->name('car.show');
+    Route::post('/car/book', [RentalController::class, 'store'])->name('car.book');
 });
+
+
+
 
 Route::get('/dashboard', function () {
     return view('admin.partials.dashboard');
