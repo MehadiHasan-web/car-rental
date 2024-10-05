@@ -10,15 +10,32 @@
             <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('frontend.rentals') }}">Rantals</a>
+            <a class="nav-link" href="{{ route('frontend.rentals') }}">My Rantals</a>
           </li>
 
-          <li class="nav-item">
-            <a href="{{ route('profile') }}" class="nav-link " >Profile</a>
+
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Account
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li>
+              <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+              <li><a class="dropdown-item" href="{{ route('register') }}">Register</a></li>
+              <li>
+                <form class="dropdown-item"  action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <button  type="submit" class="dropdown-item btn btn-primary" >Logout</button>
+                </form>
+              </li>
+
+            </ul>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="d-flex" role="search" action="{{ route('search') }}">
+          <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>

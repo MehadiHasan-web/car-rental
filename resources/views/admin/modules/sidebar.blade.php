@@ -25,9 +25,9 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                     All rentals
                 </a>
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="{{ route('users') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                    Tables
+                    Users
                 </a>
             </div>
         </div>

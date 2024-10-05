@@ -28,15 +28,32 @@
                             <td>{{ $rental->end_date->format('Y-m-d') }}</td>
                             <td>${{ $rental->total_cost }}</td>
                             <td >
+
+
                                 @if(\Carbon\Carbon::now()->greaterThan($rental->end_date))
-                                   <span class="badge text-bg-success">Completed</span>
+                                    <span class="badge text-bg-success">Completed</span>
                                 @else
-                                    @if($rental->status == 0)
-                                        <span class="badge text-bg-warning">Ongoing</span>
+
+                                {{-- Check if rental is ongoing --}}
+                                @if($rental->status == 0 && \Carbon\Carbon::now()->between($rental->start_date, $rental->end_date))
+                                    <span class="badge text-bg-warning">Ongoing</span>
+
+                                @else
+                                    @if( $rental->status == 0 &&  \Carbon\Carbon::now()->lessThanOrEqualTo($rental->start_date))
+                                        <form action="{{ route('rental.cancel', $rental->id) }}"  method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                                        </form>
                                     @else
                                         <span class="badge text-bg-danger">Cancelled</span>
                                     @endif
+
                                 @endif
+                            @endif
+
+
+
                             </td>
                         </tr>
                     @endforeach

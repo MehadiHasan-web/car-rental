@@ -118,6 +118,13 @@ class CarController extends Controller
      */
     public function destroy(Car $car)
     {
-        //
+        if ($car->photo) {
+            $photoPath = public_path('uploads/cars/' . $car->photo);
+            if (file_exists($photoPath)) {
+                unlink($photoPath);
+            }
+        }
+        $car->delete();
+        return redirect()->route('cars.index')->with('success', 'Car deleted successfully.');
     }
 }

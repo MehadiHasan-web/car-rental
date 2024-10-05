@@ -25,8 +25,33 @@ class FrontendController extends Controller
     }
     public function rental()
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
         $rentals = Rental::where('user_id', Auth::user()->id)->with('car')->get();
-        // dd($rentals);
         return view('frontend.partials.rentals', compact('rentals'));
+    }
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('search');
+
+        $cars = Car::where('name', 'like', '%' . $searchTerm . '%')
+            ->orWhere('brand', 'like', '%' . $searchTerm . '%')
+            ->orWhere('model', 'like', '%' . $searchTerm . '%')
+            ->orWhere('car_type', 'like', '%' . $searchTerm . '%')
+            ->orWhere('rent_price', 'like', '%' . $searchTerm . '%')
+            ->get();
+
+        return view('frontend.partials.search', compact('cars'));
+    }
+
+    public function cancel($id)
+    {
+        $rental = Rental::find($id);
+        $rental->update([
+            'status' => 1,
+        ]);
+        flash()->success('Rental cancelled successfully!');
+        return redirect()->route('frontend.rentals');
     }
 }

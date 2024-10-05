@@ -29,6 +29,11 @@
                             <td>
                                 <div class="d-flex gap-1">
                                     <a class="btn btn-success" href="{{ route('cars.edit', $item->id) }}"  >Edit</a>
+                                    <form action="{{ route('cars.destroy', $item->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

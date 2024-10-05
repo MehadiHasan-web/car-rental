@@ -34,6 +34,9 @@ class RentalController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
         $request->validate([
             'car_id' => 'required|exists:cars,id',
             'start_date' => 'required|date',

@@ -17,7 +17,7 @@ class CarSeeder extends Seeder
         $faker = Faker::create();
 
         $carTypes = ['Sedan', 'SUV', 'Coupe', 'Electric'];
-        $statuses = ['0', '1'];
+        $status = ['0', '1'];
         $brands = ['Honda', 'Toyota', 'Tesla', 'BMW', 'Ford', 'Audi', 'Mercedes-Benz', 'Jeep', 'Porsche', 'Land Rover'];
         $models = ['Civic', 'Corolla', 'Model 3', 'X5', 'Mustang', 'A4', 'G-Wagon', 'Wrangler', '911 Carrera', 'Range Rover'];
 
@@ -28,7 +28,7 @@ class CarSeeder extends Seeder
                 'model' => $faker->bothify('??### 2023'),
                 'car_type' => $faker->randomElement($carTypes),
                 'rent_price' => $faker->numberBetween(50, 300),
-                'status' => $faker->randomElement($statuses),
+                'status' => $faker->randomElement($status),
                 'photo' => $faker->imageUrl(640, 480, 'transport', true, 'car'),
             ]);
         }
